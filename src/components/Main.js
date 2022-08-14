@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import './Main.css';
 
-//Form
-import { FaPlus } from 'react-icons/fa';
+import Form from './Form';
+import Tarefas from './Tarefas';
 
-//Tarefas
-import { FaWindowClose, FaEdit } from 'react-icons/fa';
+
+
 
 export default class Main extends Component {
 
@@ -14,6 +14,21 @@ export default class Main extends Component {
     tarefas: [],
     index: -1,
   };
+
+  componentDidMount() {
+    const tarefas = JSON.parse(localStorage.getItem('tarefas'));
+
+    if (!tarefas) return;
+
+    this.setState({ tarefas });
+  }
+
+  componentDidUpdate(prevPros, prevState) {
+    const { tarefas } = this.state;
+
+    if (tarefas === prevState.tarefas) return;
+    localStorage.setItem('tarefas', JSON.stringify(tarefas));
+  }
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -72,35 +87,20 @@ export default class Main extends Component {
     return (
       <div className='main'>
         <h1>Lista de Tarefas</h1>
+        <Form
+          handleSubmit={this.handleSubmit}
+          handleChange={this.handleChange}
+          novaTarefa={novaTarefa}
+        />
 
-        <form onSubmit={this.handleSubmit} action="#" className='form'>
-          <input
-            onChange={this.handleChange}
-            type="text"
-            value={novaTarefa}
-          />
-          <button type="submit">
-            <FaPlus />
+        <Tarefas
+          tarefas={tarefas}
+          handleEdit={this.handleEdit}
+          handleDelete={this.handleDelete}
 
-          </button>
-        </form>
-        <ul className='tarefas'>
-          {
-            tarefas.map((tarefa, index) => (
-              <li key={tarefa}>
-                {tarefa}
-                <span>
-                  <FaEdit
-                    onClick={(e) => this.handleEdit(e, index)}
-                    className='edit' />
-                  <FaWindowClose
-                    onClick={(e) => this.handleDelete(e, index)}
-                    className='delete' />
-                </span>
-              </li>
-            ))
-          }
-        </ul>
+        />
+
+
       </div>
     )
   }
