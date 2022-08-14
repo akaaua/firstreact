@@ -36,7 +36,7 @@ export default class Main extends Component {
     let { novaTarefa } = this.state;
     novaTarefa = novaTarefa.trim();
 
-    if (tarefas.indexOf(novaTarefa) != -1) return;
+    if (tarefas.indexOf(novaTarefa) !== -1) return;
 
     const novasTarefas = [...tarefas];
 

@@ -10,7 +10,7 @@ module.exports = {
     'airbnb',
     'eslint:recommended',
     'plugin:react-hooks/recommended',
-    'plugin:prettier/recommended',
+    'prettier',
   ],
   parser: '@babel/eslint-parser',
   parserOptions: {
@@ -20,10 +20,10 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: [
-    'react', 'prettier', 'react-hooks',
-  ],
+  plugins: ['react', 'prettier', 'react-hooks'],
   rules: {
-    'react/react-in-jsx-scope': 'off',
+    "react/jsx-filename-extension": 0,
+    "react/state-in-constructor": 0,
+    "react/forbid-prop-types": 0
   },
 };
